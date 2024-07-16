@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Think2Drive: Efficient Reinforcement Learning by Thinking with Latent World Model for Autonomous Driving (in CARLA-v2).">
+  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Think2Drive: Efficient Reinforcement Learning by Thinking with Latent World Model for Autonomous Driving (in CARLA-v2)</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <!-- <link rel="icon" href="./static/images/favicon.svg"> -->
+  <link rel="icon" href="./static/images/logo.jpg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://keunhong.com">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://thinklab-sjtu.github.io/Bench2Drive/">
+            Bench2Drive
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Think2Drive: Efficient Reinforcement Learning by Thinking with Latent World Model for Autonomous Driving (in CARLA-v2)</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://github.com/Random8756">Qifeng Li</a><sup>*</sup>,</span>
+            <span class="author-block">
+              <a href="https://jiaxiaosong1002.github.io/">Xiaosong Jia</a><sup>*</sup>,</span>
+            <span class="author-block">
+              <a href="https://gszfwsb.github.io/">Shaobo Wang</a>,</span>
+            <span class="author-block">
+              <a href="https://thinklab.sjtu.edu.cn/">Junchi Yan</a><sup>&dagger;</sup>,
+            </span>
+          </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>*</sup>Equal Contribution</span>
+            <span class="author-block"><sup>&dagger;</sup>Corresponding Author</span>
+          </div>
+          <div class="is-size-5 institution">
+            <span class="institution-block">Shanghai Jiao Tong University</span>
+          </div>
+          <div class="is-size-5 publish-status">
+            <span class="publish-status-block">ECCV 2024</span>
+          </div>
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/html/2402.16720v1"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <span class="link-block">
+                <a href="https://www.github.com"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video id="teaser" autoplay muted loop playsinline width="100%">
+        <source src="./static/videos/8xScens.mp4"
+                type="video/mp4">
+      </video>
+      <h2 class="subtitle has-text-centered">
+        Think2Drive is the first method which successfully address all the 39 complex scenarios in CARLA V2, 
+        Before that, there have been no methods can handle these scenarios since CARLA V2 was release on 2022.10. 
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+<!-- <section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-steve">
+          <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/steve.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-chair-tp">
+          <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/chair-tp.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-shiba">
+          <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/shiba.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-fullbody">
+          <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/fullbody.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Real-world autonomous driving (AD) especially urban driving involves many corner cases. 
+            The lately released AD simulator CARLA v2 adds 39 common events in the driving scene, and provide more quasi-realistic testbed compared to CARLA v1. 
+            It poses new challenge to the community and so far no literature has reported any success on the new scenarios in V2 as existing works mostly have to rely on specific rules for planning yet they cannot cover the more complex cases in CARLA v2. 
+            In this work, we take the initiative of directly training a planner and the hope is to handle the corner cases flexibly and effectively, which we believe is also the future of AD. 
+            To our best knowledge, we develop the first model-based RL method named Think2Drive for AD, with a world model to learn the transitions of the environment, and then it acts as a neural simulator to train the planner. 
+            This paradigm significantly boosts the training efficiency due to the low dimensional state space and parallel computing of tensors in the world model. 
+            As a result, Think2Drive is able to run in an expert-level proficiency in CARLA v2 within 3 days of training on a single A6000 GPU, and to our best knowledge, so far there is no reported success (100\% route completion)on CARLA v2. 
+            We also propose CornerCase-Repository, a benchmark that supports the evaluation of driving models by scenarios. 
+            Additionally, we propose a new and balanced metric to evaluate the performance by route completion, infraction number, and scenario density, so that the driving score could give more information about the actual driving performance.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <!-- Paper video. -->
+    <!-- <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div> -->
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+<section class="section">
+
+ <!-- Task Overview-1. -->
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Task Overview</h2>
+          <p>
+          CARLA V2 introduces 39 complex scenarios that mirror the real-world traffic situation. 
+          For instance, there is a scenario where the ego vehicle is on a two-way single-lane road and encounters a construction zone ahead. 
+          It requires the ego agent to invade the opposite lane when it is sufficiently clear, 
+          circumventing the construction area, and promptly merging back into the original lane afterward. 
+          Even a procient human driver has to carefully identity the perfect moment for lane changing in this scenario. 
+        </p>
+        </div>
+      </div>
+  </div>
+<!--/ Task Overview-1. -->
+
+  <div class="container">
+    <div class="hero-body">
+      <div class="has-text-centered">
+        <img src="./static/images/ConstructionTwoWays.png"
+                  class="interpolation-image"
+                  alt="Interpolate start reference image."
+                  width="500"/>
+        <p>Two-Way Construction Scenario</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Task Overview-2. -->
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          CARLA V2 aims at evaluating the capablity of autonomous driving models for urban driving. 
+          However, there have been not any effective solutions for this task, 
+          because a huge difficuty gap between CARLA V2 and other benchmarks (such as CARLA V1). 
+          It is nearly impossible to hand-write rules for covering all these scenarios. 
+          Some other popular approach such as model-free reinforcement learning also fail due to its low training efficiency. 
+        </div>
+      </div>
+    </div>
+  <!--/ Task Overview-2. -->
+
+  <div class="container">
+    <div class="hero-body">
+      <div class="has-text-centered">
+        <img src="./static/images/6xScenario.png"
+                  class="interpolation-image"
+                  alt="Interpolate start reference image."
+                  width="1000"/>
+        <p>Some Scenarios in CARLA V2</p>
+      </div>
+    </div>
+  </div>  
+
+  <!-- Task Overview-3. -->
+  <!-- <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <p>The difficuties lie not only in the requirement for accurate driving policy, 
+          but also in many other challenges: </p>
+        <p>1. Requirement on high training efficiency: 
+          The SOTA model, Roach, needs get trained over 4 days to solve 10 simple scenarios in CARLA V1. 
+          There are more and increasingly difficult scenarios in CARLA V2, 
+          which poses a higher level of training efficiency. 
+        </p>
+        <p>2. Policy degradation: There might exist contradictions among optimal policies of different scenarios. 
+          An obvious example is, ego vehicle has to be cautious in some "Cut in" scenarios, 
+          but has to be bold in some "enter traffic flow" scenarios. 
+          That means the driving model could be easily trapped in the local optima. 
+        </p>
+        <p>3. Long-tail nature: In particular, corner cases, as their names suggest, 
+          are sparse in both the real world and the routes provided by CARLA v2, 
+          posing a long-tail problem for learning. 
+        </p>
+        <p>4. Vehicle heading stabilization: or a learning-based planner, 
+          maintaining the same action over a long time is hard. 
+          However, stability and smoothness of control are required in the context of autonomous driving, 
+          such as maintaining a steady steer value on a straight lane. 
+        </p>
+      </div>
+    </div>
+  </div> -->
+  <!--/ Task Overview-3. -->
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="column is-full-width">
+      <h2 class="title is-3">Model-based Reinforcement Learning</h2>
+      <p>
+        Think2Drive firstly utlizes model-based reinforcement learning(MBRL) approach to solve such an urban driving task, 
+        and proposes devised bricks to handle the challenges along with appling MRBL approach to AD task. 
+        For the model's structure, we use DreamerV3 as our base model. 
+        We train world model to learn the transition model, reward model and termination model of the environement, 
+        and the planner model to maxmize the reward predicted by the world model. 
+        Due to our world model can "think" in the low-dimonsional latent space, 
+        Think2Drive can enjoy the super high traning efficiency. 
+      </p>
+    </div>
+  </div>
+  <div class="container">
+    <div class="hero-body">
+      <div class="has-text-centered">
+        <img src="./static/images/training.png"
+                  class="interpolation-image"
+                  alt="Interpolate start reference image."
+                  width="1000"/>
+        <p>World Model Learning and Planner Leanring in Think2Drive</p>
+      </div>
+    </div>
+  </div>  
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="column is-full-width">
+      <h2 class="title is-3">Result</h2>
+      <p>
+        We evaluate Think2Drive in CARLA V2 and our proposed benchmark CornerCaseRepo. 
+        CARLA V2 providea 90 training routes, 2 test routes, 
+        20 validation routes and average length is bigger than 6km, average scenario number is bigger than 50. 
+        It is hard to evaluate the driving model's capability for handling these scenarios, 
+        due to there is no official API support for the placement of scenarios. 
+        CornerCaseRepo contains 4000 training routes and 390 test routes. 
+        Each route in CornerCaseRepo only has one type of scenario with typical length less than 200 meter. 
+        ConerCaseRepo provides convenience for debugging, scenario-wise traing and evaluation. 
+      </p>
+    </div>
+  </div>
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video id="teaser" autoplay muted loop playsinline height="100%">
+        <source src="./static/videos/demo.mp4"
+                type="video/mp4">
+      </video>
+      <div class="subtitle has-text-centered">
+        Think2Drive in CARLA V2 Test Route. 
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{li2024think2drive,
+  title={Think2Drive: Efficient Reinforcement Learning by Thinking in Latent World Model for Quasi-Realistic Autonomous Driving (in CARLA-v2)},
+  author={Li, Qifeng and Jia, Xiaosong and Wang, Shaobo and Yan, Junchi},
+  journal={arXiv preprint arXiv:2402.16720},
+  year={2024}
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./static/videos/nerfies_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            Website reference: <a href="https://github.com/nerfies/nerfies.github.io"> source code
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
